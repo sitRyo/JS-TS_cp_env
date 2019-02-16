@@ -42,14 +42,24 @@ export default {
   },
   methods: {
     callbackExecuteButton: function (contents) {
+      const _original_console_log = console.log
+      let out = ''
       this.output = ''
-      
-      console.log = (v) => {
-        this.output += String(v) + "\n"
+
+      console.log = function() {
+        for (let i = 0; i < arguments.length; i++) {
+          _original_console_log(typeof String(arguments[i]) + ' ')
+          out += String(arguments[i]) + ' '
+        }
+
+        out += '\n'
       }
+      
       this.isExecute = false
       const exec = this.runCode(this.formedCode(contents))
       exec()
+
+      this.output = out
     },
 
     pushExecuteButton: function () {
@@ -80,5 +90,8 @@ export default {
 </script>
 
 <style lang="scss">
-
+textarea {
+  height: 200px;
+  width: 300px;
+}
 </style>
