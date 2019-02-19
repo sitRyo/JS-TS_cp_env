@@ -6,6 +6,8 @@
 
 <script>
 import ace from 'ace-builds'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'ace-builds/src-noconflict/mode-typescript'
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/theme-monokai'
@@ -15,6 +17,7 @@ export default {
   name: 'EditorSpace',
   data() {
     return {
+      /* @param: デフォルトでエディタ部分に表示される内容 */
       contents: 
       `//このテンプレートは崩さないでください。入力を受け取れなくなります。
 function Main(input) {
@@ -22,8 +25,18 @@ function Main(input) {
 }
 Main(require("fs").readFileSync("/dev/stdin", "utf8"));
 `,
+
+      /* @param: ace editorのオブジェクト*/
       editor: {},
-      editorId: 'editor'
+
+      /* @param: ace editorのid */
+      editorId: 'editor',
+      
+      /* @param: 現在選択している言語(bootstrapのボタンに対応する) */
+      whichLanguage: {
+        'JavaScript': true,
+        'TypeScript': true,
+      }
     }
   },
   mounted () {
@@ -47,8 +60,8 @@ Main(require("fs").readFileSync("/dev/stdin", "utf8"));
 <style lang="scss">
 #editor {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
 }
 </style>
 

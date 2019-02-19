@@ -1,5 +1,5 @@
 <template>
-  <b-container class="bv-example-row">
+  <b-container class="wrapper">
     <b-row>
       <b-col>
         <editor-space 
@@ -11,12 +11,12 @@
         <button @click="pushExecuteButton">Execute</button>
         <div class="io-wrapper">
           <div class="input">
-            <div class="input-top">input</div>
-            <textarea v-model="input"></textarea>
+            <div class="input-top mt-4">input</div>
+            <textarea v-model="input" class="input-area mt-1 mb-5 w-75"></textarea>
           </div>
           <div class="output">
-            <div class="output-top">output</div>
-            <textarea :value="output"></textarea>
+            <div class="output-top mt-4">output</div>
+            <textarea :value="output" class="output-area mt-1 mb-5 w-75"></textarea>
           </div>
         </div>
       </b-col>
@@ -38,6 +38,10 @@ export default {
       isExecute: false,
 
       editorContents: '',
+      language: {
+        'JavaScript': true,
+        'TypeScript': false,
+      }
     }
   },
   methods: {
@@ -90,8 +94,22 @@ export default {
 </script>
 
 <style lang="scss">
-textarea {
-  height: 200px;
-  width: 300px;
+
+.wrapper  {
+  
+  .io-wrapper {
+    font-weight: 600;
+
+    textarea {
+      resize: none;
+      border-radius: 0.1rem;
+      height: 15vw;
+    }
+  }
+
+
 }
+
+
+
 </style>
