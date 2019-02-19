@@ -16,7 +16,8 @@ export default {
   data() {
     return {
       contents: 
-      `function Main(input) {
+      `//このテンプレートは崩さないでください。入力を受け取れなくなります。
+function Main(input) {
 
 }
 Main(require("fs").readFileSync("/dev/stdin", "utf8"));
