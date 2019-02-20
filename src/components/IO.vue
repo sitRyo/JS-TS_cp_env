@@ -8,7 +8,17 @@
         </editor-space>
       </b-col>
       <b-col>
-        <button @click="pushExecuteButton">Execute</button>
+        <b-row>
+          <b-col class="ml-5">
+            <b-dropdown right :text="languageText">
+              <b-dropdown-item v-show="!language.JavaScript" @click="switchLanguageMode('JavaScript')">JavaScript</b-dropdown-item>
+              <b-dropdown-item v-show="!language.TypeScript" @click="switchLanguageMode('TypeScript')">TypeScript</b-dropdown-item>
+            </b-dropdown>
+          </b-col>
+          <b-col class="mr-5">
+            <b-button @click="pushExecuteButton">Execute</b-button>
+          </b-col>
+        </b-row>
         <div class="io-wrapper">
           <div class="input">
             <div class="input-top mt-4">input</div>
@@ -38,9 +48,14 @@ export default {
       isExecute: false,
 
       editorContents: '',
+      languageText: 'JavaScript',
       language: {
         'JavaScript': true,
         'TypeScript': false,
+      },
+      languageEnum: {
+        'JavaScript': 'JavaScript',
+        'TypeScript': 'TypeScript',
       }
     }
   },
@@ -85,6 +100,20 @@ export default {
       const formedOrder = contents.substr(0,inputOrderStart-1) + '\n' + insertOrder
 
       return formedOrder
+    },
+
+    /* 実行言語の切り替え用メソッド。将来拡張する可能性を考えて作る
+     * @param type: JavaScript or TypeScriptの文字列
+     */
+    switchLanguageMode: function (type) {
+      for (let key in this.languageEnum) {
+        if (this.language[key]) {
+          this.language[key] = false
+        }
+      }
+
+      this.language[type] = true
+      this.languageText = this.languageEnum[type]
     }
   },
   components: {
@@ -103,13 +132,8 @@ export default {
     textarea {
       resize: none;
       border-radius: 0.1rem;
-      height: 15vw;
+      height: 27vh;
     }
   }
-
-
 }
-
-
-
 </style>
